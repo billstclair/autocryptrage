@@ -27,8 +27,17 @@ type alias Coin =
     }
 
 
+type alias Quantity =
+    Float
+
+
+type alias Amount =
+    Float
+
+
 type alias Price =
     { fromCoin : Coin
     , toCoin : Coin
-    , price : Float
+    , buyPrices : List ( Quantity, Amount ) -- Sorted by increasing Quantity
+    , sellPrice : Amount
     }
