@@ -12,6 +12,7 @@
 
 module Main exposing (main)
 
+import AutoCrypTrage.Types exposing (Coin, Price, Trader)
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation as Navigation exposing (Key)
 import Char
@@ -50,7 +51,8 @@ view model =
 
 
 type alias Model =
-    { foo : String }
+    { traders : List Trader
+    }
 
 
 type Msg
@@ -64,7 +66,7 @@ init flags url key =
     let
         model : Model
         model =
-            { foo = "foo"
+            { traders = []
             }
     in
     model |> withNoCmd
