@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cp LICENSE site
+
+elm make src/Main.elm --output site/elm.js
+bin/safari-patch
