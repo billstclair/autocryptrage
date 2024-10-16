@@ -12,16 +12,20 @@
 
 module AutoCrypTrage.Types exposing
     ( Amount
+    , BuyOrSell(..)
     , Coin
     , CoinID
-    , NextTrade
     , Price
     , PriceDict
     , Quantity
+    , ToCoinDict
     , Trade
     , TradeArm
+    , TradeDict
+    , TradeStack
     , Trader
     , TraderID
+    , TraderPrices
     , WalletEntry
     )
 
@@ -68,24 +72,43 @@ type alias Price =
     { fromCoin : Coin
     , toCoin : Coin
     , buyPrices : List ( Quantity, Amount ) -- Sorted by increasing Quantity
-    , sellPrice : Amount
+    , sellPrice : Amount -- Buy price if byPrices is empty
     }
+
+
+
+-- `CoinID` is the `toCoin` of the Price.
+-- All the `fromCoin`s are the same.
+
+
+type alias ToCoinDict =
+    Dict CoinID Price
+
+
+
+-- `CoinID` is the `fromCoin` of the `Price`s
+
+
+type alias PriceDict =
+    Dict CoinID ToCoinDict
 
 
 type alias TraderPrices =
     { trader : Trader
-    , prices : List Price
+    , prices : Dict CoinID Price
     }
 
 
-type alias PriceDict =
-    Dict Coin (List Price)
+type BuyOrSell
+    = Buy
+    | Sell
 
 
 type alias TradeArm =
     { coin : Coin
     , quantity : Quantity
     , amount : Amount
+    , buyOrSell : BuyOrSell
     }
 
 
@@ -96,7 +119,11 @@ type alias Trade =
     }
 
 
-type alias NextTrade =
-    { traderPrices : List TraderPrices
-    , coins : List Coin
+type alias TradeDict =
+    Dict TraderID TraderPrices
+
+
+type alias TradeStack =
+    { lastTrade : Maybe Trade
+    , tradeDict : TradeDict
     }
