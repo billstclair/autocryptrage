@@ -12,8 +12,28 @@
 
 module AutoCrypTrage.Arbitrage exposing (findArbitrage)
 
+import AutoCrypTrage.Types
+    exposing
+        ( Amount
+        , BuyOrSell(..)
+        , Coin
+        , CoinID
+        , Price
+        , PriceDict
+        , Quantity
+        , ToCoinDict
+        , Trade
+        , TradeArm
+        , TradeDict
+        , TradeStack
+        , Trader
+        , TraderID
+        , TraderPrices
+        , WalletEntry
+        )
 
-findArbitrage : List Trade -> NextTrade -> ( List Trade, NextTrade )
-findArbitrage trades nextTrade =
+
+findArbitrage : List Trade -> TradeStack -> ( List Trade, TradeStack )
+findArbitrage trades stack =
     -- TODO
-    ( trades, nextTrade )
+    ( trades, stack )
