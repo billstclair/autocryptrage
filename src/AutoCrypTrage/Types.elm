@@ -11,25 +11,46 @@
 
 
 module AutoCrypTrage.Types exposing
-    ( Amount
-    , BuyOrSell(..)
-    , Coin
-    , CoinID
-    , Price
-    , PriceDict
-    , Quantity
-    , ToCoinDict
-    , Trade
-    , TradeArm
-    , TradeDict
+    ( CoinID, TraderID
+    , Quantity, Amount
+    , Trader, Coin, Price, PriceDict, TraderPrices, TradeDict
+    , BuyOrSell(..), Trade, TradeArm, ToCoinDict
     , TradeStack
-    , Trader
-    , TraderID
-    , TraderPrices
     , WalletEntry
     )
 
 {-| Shared types for AutoCrypTrage.
+
+
+# IDs
+
+@docs CoinID, TraderID
+
+
+# Amounts
+
+@docs Quantity, Amount
+
+
+# Prices
+
+@docs Trader, Coin, Price, PriceDict, TraderPrices, TradeDict
+
+
+# Trades
+
+@docs BuyOrSell, Trade, TradeArm, TradeDict, ToCoinDict
+
+
+# Arbitrage
+
+@docs TradeStack
+
+
+# Unqualified
+
+@docs WalletEntry
+
 -}
 
 import Dict exposing (Dict)
