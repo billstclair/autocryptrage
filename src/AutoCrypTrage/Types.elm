@@ -16,7 +16,7 @@ module AutoCrypTrage.Types exposing
     , Trader, Coin, Price, PriceDict, TraderPrices, TradeDict
     , BuyOrSell(..), Trade, TradeArm, ToCoinDict
     , TradeStack
-    , WalletEntry
+    , WalletEntry, Wallet
     )
 
 {-| Shared types for AutoCrypTrage.
@@ -49,7 +49,7 @@ module AutoCrypTrage.Types exposing
 
 # Unqualified
 
-@docs WalletEntry
+@docs WalletEntry, Wallet
 
 -}
 
@@ -103,6 +103,14 @@ type alias Amount =
 type alias WalletEntry =
     { coinid : CoinID
     , amount : Amount
+    }
+
+
+{-| A wallet
+-}
+type alias Wallet =
+    { trader : Trader
+    , contents : Dict CoinID WalletEntry
     }
 
 
@@ -175,6 +183,8 @@ type alias TradeDict =
 {-| The current state of walking the arbitrages.
 -}
 type alias TradeStack =
-    { lastTrade : Maybe Trade
+    { trades : List Trade
+    , initialCoin : Coin
+    , wallet : Wallet
     , tradeDict : TradeDict
     }
