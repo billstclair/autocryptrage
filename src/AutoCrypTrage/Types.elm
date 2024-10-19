@@ -127,7 +127,7 @@ type alias Price =
 
 
 {-| Map the `toCoin` field of a `Price` to the `Price`.
-All the `fromCoin` values match.
+All the `Price.fromCoin` values match.
 -}
 type alias ToCoinDict =
     Dict CoinID Price

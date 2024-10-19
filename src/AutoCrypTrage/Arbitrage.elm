@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------
 
 
-module AutoCrypTrage.Arbitrage exposing (findArbitrage)
+module AutoCrypTrage.Arbitrage exposing (findArbitrage, nextTrade)
 
 import AutoCrypTrage.Types
     exposing
@@ -31,6 +31,35 @@ import AutoCrypTrage.Types
         , TraderPrices
         , WalletEntry
         )
+import Dict exposing (Dict)
+
+
+{-| Pull the next trade off of TradeStack.
+The returned TradeStack has that Trade omitted.
+-}
+nextTrade : TradeStack -> ( Maybe Trade, TradeStack )
+nextTrade stack =
+    let
+        traderPrices : List TraderPrices
+        traderPrices =
+            Dict.values stack.tradeDict
+    in
+    case traderPrices of
+        [] ->
+            ( Nothing, stack )
+
+        prices :: rest ->
+            case Dict.get stack.initialCoin.id prices.prices of
+                Nothing ->
+                    nextTrade
+                        { stack
+                            | tradeDict =
+                                Dict.remove prices.trader.id stack.tradeDict
+                        }
+
+                Just toCoinDict ->
+                    -- TODO
+                    ( Nothing, stack )
 
 
 {-| If the first return value is not `Nothing`, it will be pushed
