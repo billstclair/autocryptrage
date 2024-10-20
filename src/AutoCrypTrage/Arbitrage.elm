@@ -43,13 +43,17 @@ nextTrade stack =
         traderPrices : List TraderPrices
         traderPrices =
             Dict.values stack.tradeDict
+
+        coinid : CoinID
+        coinid =
+            stack.initialCoin.id
     in
     case traderPrices of
         [] ->
             ( Nothing, stack )
 
         prices :: rest ->
-            case Dict.get stack.initialCoin.id prices.prices of
+            case Dict.get coinid prices.prices of
                 Nothing ->
                     nextTrade
                         { stack
@@ -58,8 +62,19 @@ nextTrade stack =
                         }
 
                 Just toCoinDict ->
-                    -- TODO
-                    ( Nothing, stack )
+                    case getToTrade coinid toCoinDict of
+                        Nothing ->
+                            -- TODO
+                            ( Nothing, stack )
+
+                        Just trade ->
+                            -- TODO
+                            ( Nothing, stack )
+
+
+getToTrade : CoinID -> ToCoinDict -> Maybe (List Trade)
+getToTrade coinsid toCoinDict =
+    Nothing
 
 
 {-| If the first return value is not `Nothing`, it will be pushed
